@@ -1,3 +1,9 @@
+## Linux port
+
+Depends on `ipset` and `iptables`. Ensure that both of them work. 
+The port just sorta works, I'm going to work on it to ensure redundant rules don't start piling up.
+
+
 [![N|Solid](https://i.kinja-img.com/gawker-media/image/upload/c_fill,fl_progressive,g_center,h_180,q_80,w_320/rdxcnz0ban3vivfm8ect.png)]()
 # Thwarting Tech Giants
 Amazon, Facebook, Google, Microsoft, and Apple move more money than many medium sized nations. Their extraordinary profits are won through extraordinary reach - this is not a secret. That a few companies are afforded unprecedented and shamefully unregulated access into our homes is now an unremarkable fact of living with tiny computers everywhere.  
