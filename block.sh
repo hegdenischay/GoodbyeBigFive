@@ -15,7 +15,7 @@ build_rules () {
 		ip=${ip#":"}
 		ip=${ip//[[:blank:]]/}
 		echo "blocking $ip" 
-		pfctl -t techgiant -T add "$ip" &>block.out
+		(ipset add techgiant-$company $ip -exist || true) &>block.out 
 	done
 
 }
@@ -25,10 +25,10 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-if ! grep -qs techgiant /etc/pf.conf; then
-	echo "adding rule to pf.conf"
-	echo 'block out log from any to <techgiant>' >> /etc/pf.conf
-fi
+#if ! grep -qs techgiant /etc/pf.conf; then
+#	echo "adding rule to pf.conf"
+#	echo 'block out log from any to <techgiant>' >> /etc/pf.conf
+#fi
 
 
 if [ $# -eq 0 ]
@@ -51,14 +51,19 @@ if [[ $LIMIT == "--help" ]]; then
     exit 1
 fi
 
-pfctl -F all
+# pfctl -F all
 
 
 
 [ ! -f $INPUT ] && { echo "$INPUT file not found"; exit 99; }
 
+# ipset create techgiant hash:ip timeout 300
+# iptables -I INPUT -m set --match-set techgiant src -j DROP
+
 while read company as 
 do
+	ipset create techgiant-$company hash:net timeout -exist 300
+	iptables -I INPUT -m set --match-set techgiant-$company src -j DROP
 	if [[ $LIMIT == "--"$company || $LIMIT == "none" || $LIMIT == "--fascist" ]]; then
 	    build_rules "$as" "$company"
 	fi
