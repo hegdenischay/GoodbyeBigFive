@@ -15,7 +15,7 @@ build_rules () {
 		ip=${ip#":"}
 		ip=${ip//[[:blank:]]/}
 		echo "blocking $ip" 
-		(ipset add techgiant-$company $ip -exist || true) &>block.out 
+		ipset add techgiant-$company $ip -exist &>block.out 
 	done
 
 }
@@ -62,9 +62,9 @@ fi
 
 while read company as 
 do
-	ipset create techgiant-$company hash:net timeout -exist 300
-	iptables -I INPUT -m set --match-set techgiant-$company src -j DROP
 	if [[ $LIMIT == "--"$company || $LIMIT == "none" || $LIMIT == "--fascist" ]]; then
+	    ipset create techgiant-$company hash:net timeout -exist 300
+	    iptables -C INPUT -m set --match-set techgiant-$company src -j DROP || iptables -I INPUT -m set --match-set techgiant-$company src -j DROP
 	    build_rules "$as" "$company"
 	fi
 
