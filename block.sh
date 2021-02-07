@@ -63,7 +63,7 @@ fi
 while read company as 
 do
 	if [[ $LIMIT == "--"$company || $LIMIT == "none" || $LIMIT == "--fascist" ]]; then
-	    ipset create techgiant-$company hash:net timeout -exist 300
+	    ipset create techgiant-$company hash:net timeout -exist 0
 	    iptables -C INPUT -m set --match-set techgiant-$company src -j DROP || iptables -I INPUT -m set --match-set techgiant-$company src -j DROP
 	    build_rules "$as" "$company"
 	fi
