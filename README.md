@@ -1,7 +1,12 @@
 ## Linux port
 
 Depends on `ipset` and `iptables`. Ensure that both of them work. 
-The port just sorta works, I'm going to work on it to ensure redundant rules don't start piling up.
+~~The port just sorta works, I'm going to work on it to ensure redundant rules don't start piling up.~~
+Can confirm that it indeed works, since I actually use it from time to time to get an internet detox.
+
+## To Do
+
+- Modify clear-filter.sh to check if a particular rule exists, and then to remove it.
 
 
 [![N|Solid](https://i.kinja-img.com/gawker-media/image/upload/c_fill,fl_progressive,g_center,h_180,q_80,w_320/rdxcnz0ban3vivfm8ect.png)]()
