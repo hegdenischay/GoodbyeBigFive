@@ -1,7 +1,9 @@
 ## Linux port
 
 Depends on `ipset` and `iptables`. Ensure that both of them work. 
+
 ~~The port just sorta works, I'm going to work on it to ensure redundant rules don't start piling up.~~
+
 Can confirm that it indeed works, since I actually use it from time to time to get an internet detox.
 
 ## To Do
